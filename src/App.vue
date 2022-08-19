@@ -33,14 +33,80 @@
     </ul>
   </template>
 
-  <h3>{{ name.split('').reverse().join('') }}</h3>
+  <h3>{{ name.split("").reverse().join("") }}</h3>
   <span v-for="n in 10" :key="n">{{ n }}</span>
-  <br>
+  <br />
   <template v-for="todo in todos" :key="todo.name">
-      <span v-show="!todo.isComplete">
-          {{todo.name}}
-      </span>
+    <span v-show="!todo.isComplete">
+      {{ todo.name }}
+    </span>
   </template>
+
+  <h3>Used Methods: {{ add(num, 6) }}</h3>
+
+  <h2>Counter- {{ num }}</h2>
+  <button @click="increment()">Increment</button>
+  <button @click="decrement()">Decrement</button>
+
+  <h2>{{ name }}</h2>
+  <button @click="changeName(), increment()">Change Name</button>
+
+  <!-- using inline arrow function -->
+  <!-- <button @click="($event) => warn('Form cannot be submitted yet.', $event)">
+    Submit
+  </button> -->
+
+
+  <!-- <a @click.stop="doThis">Hello</a> -->
+
+  <div>{{ JSON.stringify(formValues) }}</div>
+
+  <form @submit.prevent="formSubmit()">
+    <div>
+      <label for="name">Name</label>
+      <input type="text" id="name" v-model.lazy.trim="formValues.name">
+    </div>
+    <div>
+      <label for="desc" >Description</label>
+      <textarea type="text" id="desc" v-model="formValues.desc">  </textarea>
+    </div>
+    <div>
+        <label for="male">Male</label>
+        <input type="radio" name="gender" id="male" value="male" v-model="formValues.gender">
+          <label for="female">Female</label>
+        <input type="radio" name="gender" id="female" value="female" v-model="formValues.gender">
+    </div>
+
+    <div>
+      <label for="skills">Select Skills</label>
+        <select  v-model="formValues.setSkills" multiple>
+          <option v-for="mo in movies" :key="mo" :value="mo">
+              {{mo}}
+          </option>
+        </select>
+    </div>
+    <div>
+      <template v-for="mo in movies" :key="mo">
+          <label for="">{{mo}}</label>
+          <input type="checkbox"  id="" name="checkBox" :value="mo" v-model="formValues.checkBox">
+      </template>
+    </div>
+
+    <div>
+      <label for="age">age</label>
+      <input type="number" id="age" v-model.lazy.number="formValues.age">
+    </div>
+
+    <div>
+      <button>Sumbit</button>
+    </div>
+
+
+    <div v-pre>
+      this is Pre {{Name}} Not Compile by Vue
+    </div>
+  </form>
+
 </template>
 
 <script>
@@ -48,19 +114,27 @@ export default {
   name: "App",
   data() {
     return {
-      todos:[
+      formValues:{
+        name:'',
+        desc: '',
+        gender:'',
+        setSkills: [],
+        checkBox: [],
+        age: ''
+      },
+      todos: [
         {
-          name: 'eating',
-          isComplete: true
+          name: "eating",
+          isComplete: true,
         },
         {
-          name: 'sleeping',
-          isComplete: false
+          name: "sleeping",
+          isComplete: false,
         },
         {
-          name: 'Study',
-          isComplete: true
-        }
+          name: "Study",
+          isComplete: true,
+        },
       ],
       actorsMovie: [
         {
@@ -96,6 +170,30 @@ export default {
         border: "1px solid green",
       },
     };
+  },
+  methods: {
+    formSubmit(){
+      console.log(this.formValues);
+    },
+    add(num1, num2) {
+      return num1 + num2;
+    },
+    increment(num = 1) {
+      this.num += num;
+    },
+    decrement(num = 1) {
+      this.num -= num;
+    },
+    changeName() {
+      this.name = "Mahmoud";
+    },
+    warn(message, event) {
+      // now we have access to the native event
+      if (event) {
+        event.preventDefault();
+      }
+      alert(message);
+    },
   },
 };
 </script>
