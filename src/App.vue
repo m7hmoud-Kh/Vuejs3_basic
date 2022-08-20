@@ -1,5 +1,6 @@
 <template>
-  <div>{{ greet }} {{ name }}</div>
+  <div>
+    <!-- <div>{{ greet }} {{ name }}</div>
   <div v-html="showBold"></div>
   <div>
     <button v-bind:disabled="isDisable">Bind</button>
@@ -49,16 +50,15 @@
   <button @click="decrement()">Decrement</button>
 
   <h2>{{ name }}</h2>
-  <button @click="changeName(), increment()">Change Name</button>
+  <button @click="changeName(), increment()">Change Name</button> -->
 
-  <!-- using inline arrow function -->
-  <!-- <button @click="($event) => warn('Form cannot be submitted yet.', $event)">
+    <!-- using inline arrow function -->
+    <!-- <button @click="($event) => warn('Form cannot be submitted yet.', $event)">
     Submit
   </button> -->
 
-
-  <!-- <a @click.stop="doThis">Hello</a> -->
-
+    <!-- <a @click.stop="doThis">Hello</a> -->
+    <!--
   <div>{{ JSON.stringify(formValues) }}</div>
 
   <form @submit.prevent="formSubmit()">
@@ -105,22 +105,116 @@
     <div v-pre>
       this is Pre {{Name}} Not Compile by Vue
     </div>
-  </form>
 
+
+
+  </form> -->
+
+    <!--
+<h2>Data {{fullName.fname}} {{fullName.lname}}</h2>
+<h2>Computed {{FullName}}</h2>
+
+
+<input type="text" v-model="fullName.fname">
+<input type="text" v-model="todos[0].name"> -->
+
+    <!-- <h2>Total {{ totalCard }}</h2>
+
+    <button @click="addItem()">Add New Item </button>
+    <input type="text" v-model="fullName.fname">
+    <h2>{{fullName.fname}}</h2>
+
+
+    <h2 v-for="item in expensiveItem" :key="item.name">
+    {{item.name}} - {{item.price}}
+    </h2>
+
+
+    <h2>{{fullNameComputed}}</h2>
+    <button @click="ChangeFullName('Mahmoud','Ahmed')">Change Full Name</button>
+    <h2>{{fullNameComputed}}</h2> -->
+
+    <!-- <h2>Volume (0-20)</h2>
+    <h1>Current Volume {{ volume }}</h1>
+    <div>
+      <button @click="increamentVolume()">Increase</button>
+      <button @click="DecreamentVolume()">Decrease</button>
+    </div>
+
+    <Greet :fullName="fullName" />
+
+    <template v-for="artical in Articals" :key="artical.id">
+      <Artical  :artical="artical" :author="artical.author"/>
+    </template>
+
+    <ComponentA /> -->
+
+    
+  </div>
 </template>
 
 <script>
+// import Greet from "./components/Greet.vue";
+// import Artical from "./components/Artical.vue";
+// import ComponentA from './components/ComponentA.vue';
 export default {
   name: "App",
+  components: {
+    // Greet,
+    // Artical,
+    // ComponentA
+  },
   data() {
     return {
-      formValues:{
-        name:'',
-        desc: '',
-        gender:'',
+      Articals: [
+        {
+          id: 1,
+          name: "artical 1",
+          isPublished: true,
+          likes: 35,
+          author:'batman'
+        },
+        {
+          id: 2,
+          name: "artical 2",
+          isPublished: true,
+          likes: 60,
+          author:'spiderMan'
+
+        },
+        {
+          id: 3,
+          name: "artical 3",
+          isPublished: true,
+          likes: 34,
+        },
+        {
+          id: 4,
+          name: "artical 4",
+          isPublished: false,
+          likes: 100,
+          author:'World'
+        },
+        {
+          id: 5,
+          name: "artical 5",
+          isPublished: true,
+          likes: 80,
+          author:'hello'
+        },
+      ],
+      volume: 0,
+      fullName: {
+        fname: "Mahmoud",
+        lname: "Khairy",
+      },
+      formValues: {
+        name: "",
+        desc: "",
+        gender: "",
         setSkills: [],
         checkBox: [],
-        age: ''
+        age: "",
       },
       todos: [
         {
@@ -169,11 +263,35 @@ export default {
         "background-color": "red",
         border: "1px solid green",
       },
+      cards: [
+        {
+          name: "Iphone",
+          price: 200,
+        },
+        {
+          name: "Computer",
+          price: 300,
+        },
+        {
+          name: "laptop",
+          price: 400,
+        },
+      ],
     };
   },
   methods: {
-    formSubmit(){
+    formSubmit() {
       console.log(this.formValues);
+    },
+    increamentVolume() {
+      if (this.volume < 20) {
+        this.volume += 2;
+      }
+    },
+    DecreamentVolume() {
+      if (this.volume != 0) {
+        this.volume -= 2;
+      }
     },
     add(num1, num2) {
       return num1 + num2;
@@ -194,7 +312,51 @@ export default {
       }
       alert(message);
     },
+    addItem() {
+      console.log("Method AddItem");
+      console.log(this.cards);
+      const obj = { name: "TV", price: 150 };
+      this.cards.push(obj);
+    },
+    ChangeFullName(fname, lname) {
+      this.fullName.fname = fname;
+      this.fullName.lname = lname;
+    },
   },
+  computed: {
+    totalCard() {
+      return this.cards.reduce((total, curr) => total + curr.price, 0);
+    },
+    expensiveItem() {
+      return this.cards.filter((item) => item.price > 200);
+    },
+    fullNameComputed: {
+      set(fname, lname) {
+        this.fullName.fname = fname;
+        this.fullName.lname = lname;
+      },
+      get() {
+        return `${this.fullName.fname}  ${this.fullName.lname}`;
+      },
+    },
+  },
+  watch: {
+    volume(newValue, oldValue) {
+      if (newValue > oldValue && newValue == 16) {
+        console.log(
+          "You Are in Danger Zone , You Are heart You Hearing " + newValue
+        );
+      }
+      if (newValue == 20) {
+        console.log("The maximum Value is 20");
+      }
+    },
+  },
+  provide(){
+    return{
+      username: `${this.fullName.fname}  ${this.fullName.lname}`
+    }
+  }
 };
 </script>
 
