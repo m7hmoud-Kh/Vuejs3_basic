@@ -196,6 +196,11 @@
               <MyModal />
           </Teleport>
       </div> -->
+
+    <PostPosts />
+      <GetPosts />
+
+
   </div>
 </template>
 
@@ -211,7 +216,8 @@
 // import TabB from "./components/TabB.vue";
 // import TabC from "./components/TabC.vue";
 // import MyModal from './components/MyModal.vue';
-
+import GetPosts from './components/GetPosts.vue';
+import PostPosts from './components/PostPosts.vue';
 export default {
   name: "App",
   components: {
@@ -226,6 +232,8 @@ export default {
     // TabB,
     // TabC,
     // MyModal,
+    GetPosts,
+    PostPosts
   },
   data() {
     return {
