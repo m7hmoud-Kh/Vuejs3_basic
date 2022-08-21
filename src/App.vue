@@ -148,8 +148,30 @@
     </template>
 
     <ComponentA /> -->
+    <!--
+    <button @click="OpenPopUp()">Open PopUp</button>
+    <PopUp v-show="showPopUp" @close="closePopUp" />
+    -->
 
-    
+    <!-- <Input v-model="name" />
+
+    <UserName v-model:fname="firstName"
+              v-model:lname="lastName" />
+
+    {{firstName }} - {{lastName}} -->
+
+  <Card>
+      <template #header>
+        <h2>Card Header</h2>
+      </template>
+      <template v-slot="slotProps">
+            <h2>{{slotProps.text}} {{slotProps.count}}</h2> <!-- Replace in Slot -->
+      </template>
+      <template #footer >
+        <p>Card Footer</p>
+      </template>
+  </Card>
+
   </div>
 </template>
 
@@ -157,206 +179,45 @@
 // import Greet from "./components/Greet.vue";
 // import Artical from "./components/Artical.vue";
 // import ComponentA from './components/ComponentA.vue';
+// import PopUp from "./components/PopUp.vue";
+// import Input from "./components/Input.vue";
+// import UserName from "./components/UserName.vue";
+import Card from './components/Card.vue';
 export default {
   name: "App",
   components: {
     // Greet,
     // Artical,
-    // ComponentA
+    // ComponentA,
+    // PopUp,
+    // Input,
+    // UserName,
+    Card
   },
   data() {
     return {
-      Articals: [
-        {
-          id: 1,
-          name: "artical 1",
-          isPublished: true,
-          likes: 35,
-          author:'batman'
-        },
-        {
-          id: 2,
-          name: "artical 2",
-          isPublished: true,
-          likes: 60,
-          author:'spiderMan'
-
-        },
-        {
-          id: 3,
-          name: "artical 3",
-          isPublished: true,
-          likes: 34,
-        },
-        {
-          id: 4,
-          name: "artical 4",
-          isPublished: false,
-          likes: 100,
-          author:'World'
-        },
-        {
-          id: 5,
-          name: "artical 5",
-          isPublished: true,
-          likes: 80,
-          author:'hello'
-        },
-      ],
-      volume: 0,
-      fullName: {
-        fname: "Mahmoud",
-        lname: "Khairy",
-      },
-      formValues: {
-        name: "",
-        desc: "",
-        gender: "",
-        setSkills: [],
-        checkBox: [],
-        age: "",
-      },
-      todos: [
-        {
-          name: "eating",
-          isComplete: true,
-        },
-        {
-          name: "sleeping",
-          isComplete: false,
-        },
-        {
-          name: "Study",
-          isComplete: true,
-        },
-      ],
-      actorsMovie: [
-        {
-          name: "Ahmed Eiz",
-          movie: ["El mamr", "El Rahena", "Malakey Alex"],
-        },
-        {
-          name: "karim",
-          movie: ["Abo Ail", "xyz", "Hello"],
-        },
-      ],
-      movies: ["Dark", "Vikigns", "See"],
-      showDiv: false,
-      num: 4,
-      name: "Khairy",
-      greet: "Hello",
-      showBold: "<b>For Testing</b>",
-      isDisable: false,
-      isUnderline: true,
-      isPromoted: true,
-      isSoldOut: false,
-      baseObject: {
-        color: "white",
-        "font-size": "30px",
-        padding: "10px",
-      },
-      successObject: {
-        "background-color": "green",
-        border: "1px solid green",
-      },
-      dangerObject: {
-        "background-color": "red",
-        border: "1px solid green",
-      },
-      cards: [
-        {
-          name: "Iphone",
-          price: 200,
-        },
-        {
-          name: "Computer",
-          price: 300,
-        },
-        {
-          name: "laptop",
-          price: 400,
-        },
-      ],
+      showPopUp: false,
+      count: 2,
+      name: "",
+      firstName: "mahmoud",
+      lastName: "khairy",
+      cardContet: 'Card Content'
     };
   },
   methods: {
-    formSubmit() {
-      console.log(this.formValues);
+    OpenPopUp() {
+      this.showPopUp = true;
     },
-    increamentVolume() {
-      if (this.volume < 20) {
-        this.volume += 2;
-      }
+    closePopUp(name) {
+      this.showPopUp = false;
+      console.log("Name", name);
     },
-    DecreamentVolume() {
-      if (this.volume != 0) {
-        this.volume -= 2;
-      }
-    },
-    add(num1, num2) {
-      return num1 + num2;
-    },
-    increment(num = 1) {
-      this.num += num;
-    },
-    decrement(num = 1) {
-      this.num -= num;
-    },
-    changeName() {
-      this.name = "Mahmoud";
-    },
-    warn(message, event) {
-      // now we have access to the native event
-      if (event) {
-        event.preventDefault();
-      }
-      alert(message);
-    },
-    addItem() {
-      console.log("Method AddItem");
-      console.log(this.cards);
-      const obj = { name: "TV", price: 150 };
-      this.cards.push(obj);
-    },
-    ChangeFullName(fname, lname) {
-      this.fullName.fname = fname;
-      this.fullName.lname = lname;
+    increaseCount(n) {
+      this.count += n;
     },
   },
-  computed: {
-    totalCard() {
-      return this.cards.reduce((total, curr) => total + curr.price, 0);
-    },
-    expensiveItem() {
-      return this.cards.filter((item) => item.price > 200);
-    },
-    fullNameComputed: {
-      set(fname, lname) {
-        this.fullName.fname = fname;
-        this.fullName.lname = lname;
-      },
-      get() {
-        return `${this.fullName.fname}  ${this.fullName.lname}`;
-      },
-    },
-  },
-  watch: {
-    volume(newValue, oldValue) {
-      if (newValue > oldValue && newValue == 16) {
-        console.log(
-          "You Are in Danger Zone , You Are heart You Hearing " + newValue
-        );
-      }
-      if (newValue == 20) {
-        console.log("The maximum Value is 20");
-      }
-    },
-  },
-  provide(){
-    return{
-      username: `${this.fullName.fname}  ${this.fullName.lname}`
-    }
-  }
+  computed: {},
+  watch: {},
 };
 </script>
 
