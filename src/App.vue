@@ -160,18 +160,42 @@
 
     {{firstName }} - {{lastName}} -->
 
-  <Card>
+    <!-- Replace in Slot -->
+    <!-- <Card>
       <template #header>
         <h2>Card Header</h2>
       </template>
       <template v-slot="slotProps">
-            <h2>{{slotProps.text}} {{slotProps.count}}</h2> <!-- Replace in Slot -->
+            <h2>{{slotProps.text}} {{slotProps.count}}</h2>
       </template>
       <template #footer >
         <p>Card Footer</p>
       </template>
-  </Card>
+  </Card> -->
 
+    <!-- <TransitionGroup name="list" tag="ul">
+      <li v-for="item in items" :key="item">
+        {{ item }}
+      </li>
+    </TransitionGroup>
+
+    <button @click="items.push('item5')">Add Item </button>
+    <button @click="items.pop()">Delete Item </button> -->
+
+    <!-- <button @click="showTab = 'TabA'">TabA</button>
+    <button @click="showTab = 'TabB'">TabB</button>
+    <button @click="showTab = 'TabC'">TabC</button>
+
+    <keep-alive>
+        <component :is="showTab" />
+    </keep-alive> -->
+<!--
+      <h3>Vue Teleport Example</h3>
+      <div>
+          <Teleport to="#modal">
+              <MyModal />
+          </Teleport>
+      </div> -->
   </div>
 </template>
 
@@ -182,7 +206,12 @@
 // import PopUp from "./components/PopUp.vue";
 // import Input from "./components/Input.vue";
 // import UserName from "./components/UserName.vue";
-import Card from './components/Card.vue';
+// import Card from './components/Card.vue';
+// import TabA from "./components/TabA.vue";
+// import TabB from "./components/TabB.vue";
+// import TabC from "./components/TabC.vue";
+// import MyModal from './components/MyModal.vue';
+
 export default {
   name: "App",
   components: {
@@ -192,7 +221,11 @@ export default {
     // PopUp,
     // Input,
     // UserName,
-    Card
+    // Card,
+    // TabA,
+    // TabB,
+    // TabC,
+    // MyModal,
   },
   data() {
     return {
@@ -201,7 +234,9 @@ export default {
       name: "",
       firstName: "mahmoud",
       lastName: "khairy",
-      cardContet: 'Card Content'
+      cardContet: "Card Content",
+      items: ["item1", "item2", "item3"],
+      showTab: "TabA",
     };
   },
   methods: {
@@ -245,5 +280,15 @@ export default {
 
 .new {
   color: olivedrab;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
