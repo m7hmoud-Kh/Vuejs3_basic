@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="loadPost">Load Posts</button>
+    <!-- <button @click="loadPost">Load Posts</button> -->
     <div v-if="posts">
       <div v-for="post in posts" :key="post.id">
         <h2>{{ post.title }}</h2>
@@ -14,6 +14,10 @@
 import axios from "axios";
 export default {
   name: "GetPosts",
+  // invoke after component Creation
+  created(){
+    this.loadPost()
+  },
   data() {
     return {
       posts: [],

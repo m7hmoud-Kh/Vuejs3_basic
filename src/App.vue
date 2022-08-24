@@ -189,7 +189,7 @@
     <keep-alive>
         <component :is="showTab" />
     </keep-alive> -->
-<!--
+    <!--
       <h3>Vue Teleport Example</h3>
       <div>
           <Teleport to="#modal">
@@ -197,14 +197,49 @@
           </Teleport>
       </div> -->
 
-    <PostPosts />
-      <GetPosts />
+    <!-- <PostPosts /> -->
+    <!-- <GetPosts /> -->
+
+    <HoverCounter />
+    <ClickCounter />
+
+    <!-- <input type='text' ref="input" > -->
+
+    <!-- <h3>Name: {{firstName_ref}}</h3>
+    <input type="text" v-model="firstName_ref">
+
+    <h2>{{fname}} - {{lname}}</h2>
+    <button @click='chnageName'>Change Name</button>
 
 
+    <input type="text" v-model="fname">
+    <input type="text" v-model="lname">
+
+    <h2>{{reactiveFullName}}</h2>
+
+      <input type="text" v-model="num1">
+    <input type="text" v-model="num2">
+
+    <h3>Sum is {{result}}</h3>
+
+    <input type="number" v-model="count"> -->
+
+    <!-- <h3>{{ fname }} - {{ lname }}</h3>
+
+    <h3>count - {{ count }}</h3>
+    <button @click="incrementCount">incrementCount</button>
+
+    <ChildA /> -->
+
+
+    <!-- <input  type="text" ref="refInput"/>
+
+    <PropsComponent :fname='fname' :lname='lname' @changeState='changeState'/> -->
   </div>
 </template>
 
 <script>
+// import Input from './components/Input.vue';
 // import Greet from "./components/Greet.vue";
 // import Artical from "./components/Artical.vue";
 // import ComponentA from './components/ComponentA.vue';
@@ -216,11 +251,17 @@
 // import TabB from "./components/TabB.vue";
 // import TabC from "./components/TabC.vue";
 // import MyModal from './components/MyModal.vue';
-import GetPosts from './components/GetPosts.vue';
-import PostPosts from './components/PostPosts.vue';
+// import GetPosts from './components/GetPosts.vue';
+// import PostPosts from './components/PostPosts.vue';
+// import ChildA from "./components/ChildA.vue";
+// import PropsComponent from './components/PropsComponent.vue'
+
+import ClickCounter from './components/ClickCounter.vue';
+import HoverCounter from './components/HoverCounter.vue';
 export default {
   name: "App",
   components: {
+    // Input
     // Greet,
     // Artical,
     // ComponentA,
@@ -232,13 +273,115 @@ export default {
     // TabB,
     // TabC,
     // MyModal,
-    GetPosts,
-    PostPosts
+    // GetPosts,
+    // PostPosts,
+    ClickCounter,
+    HoverCounter,
+    // ChildA,
+    // PropsComponent
+  },
+  setup() {
+    // const firstName = ref("");
+    // firstName.value = "Mahmoud";
+
+    // const state = reactive({
+    //   fname: "Mahmoud",
+    //   lname: "Khairy",
+    // });
+
+    // const num1 = ref(0);
+    // const num2 = ref(0);
+    // const result = ref();
+
+    // watch(
+    //   () => num1.value + num2.value,
+    //   (sum) => {
+    //     result.value = sum;
+    //     console.log(sum);
+    //   }
+    // );
+
+    // const reactiveFullName = computed(() => {
+    //   return `${state.fname} ${state.lname}`;
+    // });
+
+    // watch(firstName, (newValue, oldValue) => {
+    //   console.log(newValue, oldValue);
+    // });
+
+    // const obj = reactive({ count: 0 })
+
+    // watch(
+    //   () => obj.count,
+    //   (count) => {
+    //     console.log(`count is: ${count}`)
+    //   }
+    // )
+
+    // setTimeout(() => {
+    //   firstName.value = "Khairy";
+    //   state.fname = "mai";
+    //   state.lname = "khairy";
+    //   // console.log(state)
+    // }, 2000);
+
+    // function chnageName() {
+    //   state.fname = "mahmoud";
+    //   state.lname = "khairy";
+    // }
+
+    // provide("state", state);
+
+    // const count = ref(0);
+
+    // provide("count", count);
+
+    // function incrementCount() {
+    //   count.value += 1;
+    // }
+    // provide("incrementCount", incrementCount);
+
+    // const location = ref("North Pole");
+
+    // function updateLocation() {
+    //   location.value = "South Pole";
+    // }
+
+    // provide("location", {
+    //   location,
+    //   updateLocation,
+    // });
+
+    // const refInput = ref('')
+
+    // onMounted(() => {
+    //   refInput.value.focus();
+    // })
+
+    // function changeState(){
+    //   state.fname = 'End';
+    //   state.lname = "Course Vue3";
+    // }
+
+
+    return {
+      // firstName_ref: firstName,
+      // chnageName,
+      // ...toRefs(state),
+      // reactiveFullName,
+      // num1,
+      // num2,
+      // result,
+      // count,
+      // incrementCount,
+      // refInput,
+      // changeState
+    };
   },
   data() {
     return {
       showPopUp: false,
-      count: 2,
+      // count: 2,
       name: "",
       firstName: "mahmoud",
       lastName: "khairy",
